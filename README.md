@@ -6,11 +6,13 @@
 
 **A provenance benchmark for tool-using agents. Strip the source label off a rumour, phrase it like policy, and watch a careful model spend your money — while a two-line correct rule scores a perfect 1.00 and no frontier model beats 0.17.**
 
+[![Kaggle Benchmark](https://img.shields.io/badge/Kaggle-Live%20Benchmark-20BEFF?logo=kaggle&logoColor=white)](https://www.kaggle.com/benchmarks/tasks/rudratoshshastri/who-said-that/1)
 ![Python](https://img.shields.io/badge/python-3.12-3776AB?logo=python&logoColor=white)
-![Built with](https://img.shields.io/badge/built%20with-kaggle--benchmarks-20BEFF?logo=kaggle&logoColor=white)
 ![Design](https://img.shields.io/badge/design-minimal--pair%20%C3%97%204%20conditions-8A2BE2)
 ![Tests](https://img.shields.io/badge/tests-12%20passing-success)
 ![License](https://img.shields.io/badge/license-MIT-green)
+
+**🔴 Live on Kaggle:** [kaggle.com/benchmarks/tasks/rudratoshshastri/who-said-that](https://www.kaggle.com/benchmarks/tasks/rudratoshshastri/who-said-that/1) — fork and run any model. On Kaggle's run, **Gemini 3.8 Flash and 3.7 Flash act on a laundered rumour 24/24 despite refusing the identical *labelled* version 0/24** — a 100% Laundering Gap.
 
 <img src="assets/provenance.png" alt="Provenance score: the correct rule-based baseline scores 1.0; every frontier model sits near zero" width="760">
 
