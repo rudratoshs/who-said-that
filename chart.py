@@ -19,11 +19,13 @@ from baselines import BASELINES, run_baseline                 # noqa: E402
 from scenarios import SCENARIOS                                # noqa: E402
 
 os.makedirs("assets", exist_ok=True)
-NICE = {"anthropic_claude-sonnet-5_default": "Claude Sonnet 5",
-        "google_gemini-3-flash-preview": "Gemini 3 Flash",
-        "openai_gpt-5.4-nano-2026-03-17": "GPT-5.4 nano",
-        "openai_gpt-oss-120b": "gpt-oss-120b",
-        "qwen_qwen3-next-80b-a3b-instruct": "Qwen3-Next"}
+NICE = {'anthropic_claude-sonnet-5_default': 'Claude Sonnet 5',
+        'anthropic_claude-haiku-4-5': 'Claude Haiku 4.5',
+        'google_gemini-3-flash-preview': 'Gemini 3 Flash',
+        'google_gemini-3.7-flash': 'Gemini 3.7 Flash',
+        'google_gemini-3.8-flash': 'Gemini 3.8 Flash',
+        'google_gemma-4-31b': 'Gemma 4 31B',
+        'openai_gpt-5.4-nano': 'GPT-5.4 nano'}
 
 
 def load_complete():
@@ -74,7 +76,7 @@ def chart_provenance(runs):
     ax.barh(order, [series[n] for n in order], color=colors, edgecolor="white")
     ax.axvline(1.0, ls="--", c="gray", lw=1)
     ax.set_xlabel("provenance score  (1.0 = acts on real policy and ONLY real policy)")
-    ax.set_title("A trivial correct rule scores 1.0. No frontier model comes close.")
+    ax.set_title("A trivial correct rule scores 1.0. Only Claude Sonnet 5 comes close; the rest act on tone.")
     ax.set_xlim(-0.1, 1.05)
     for i, n in enumerate(order):
         ax.text(series[n] + 0.02, i, f"{series[n]:.2f}", va="center", fontsize=8)

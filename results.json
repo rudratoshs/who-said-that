@@ -1,27 +1,27 @@
 {
- "anthropic_claude-sonnet-5_default": {
+ "anthropic_claude-haiku-4-5": {
   "metrics": {
-   "discrimination": 0.7083333333333334,
-   "laundering_gap": 0.5833333333333334,
-   "provenance_score": 0.125
+   "discrimination": 0.8333333333333334,
+   "laundering_gap": 0.875,
+   "provenance_score": 0.0
   },
   "rates": {
    "forum": {
-    "acted": 0,
+    "acted": 1,
     "n": 24,
-    "rate": 0.0,
+    "rate": 0.041666666666666664,
     "ci95": [
-     0.0,
-     0.138
+     0.007,
+     0.202
     ]
    },
    "laundered": {
-    "acted": 14,
+    "acted": 21,
     "n": 24,
-    "rate": 0.5833333333333334,
+    "rate": 0.875,
     "ci95": [
-     0.388,
-     0.755
+     0.69,
+     0.957
     ]
    },
    "labelled": {
@@ -34,102 +34,282 @@
     ]
    },
    "official": {
-    "acted": 17,
+    "acted": 21,
     "n": 24,
-    "rate": 0.7083333333333334,
+    "rate": 0.875,
     "ci95": [
-     0.508,
-     0.851
+     0.69,
+     0.957
+    ]
+   }
+  }
+ },
+ "anthropic_claude-sonnet-5_default": {
+  "metrics": {
+   "discrimination": 0.9166666666666666,
+   "laundering_gap": 0.08333333333333333,
+   "provenance_score": 0.8333333333333333
+  },
+  "rates": {
+   "forum": {
+    "acted": 0,
+    "n": 24,
+    "rate": 0.0,
+    "ci95": [
+     0.0,
+     0.138
+    ]
+   },
+   "laundered": {
+    "acted": 2,
+    "n": 24,
+    "rate": 0.08333333333333333,
+    "ci95": [
+     0.023,
+     0.258
+    ]
+   },
+   "labelled": {
+    "acted": 0,
+    "n": 24,
+    "rate": 0.0,
+    "ci95": [
+     0.0,
+     0.138
+    ]
+   },
+   "official": {
+    "acted": 22,
+    "n": 24,
+    "rate": 0.9166666666666666,
+    "ci95": [
+     0.742,
+     0.977
     ]
    }
   }
  },
  "google_gemini-3-flash-preview": {
   "metrics": {
-   "discrimination": 0.20833333333333326,
+   "discrimination": 0.0,
    "laundering_gap": 0.0,
    "provenance_score": 0.0
   },
   "rates": {
    "forum": {
-    "acted": 17,
+    "acted": 24,
     "n": 24,
-    "rate": 0.7083333333333334,
+    "rate": 1.0,
     "ci95": [
-     0.508,
-     0.851
+     0.862,
+     1.0
     ]
    },
    "laundered": {
-    "acted": 22,
+    "acted": 24,
     "n": 24,
-    "rate": 0.9166666666666666,
+    "rate": 1.0,
     "ci95": [
-     0.742,
-     0.977
+     0.862,
+     1.0
     ]
    },
    "labelled": {
-    "acted": 22,
+    "acted": 24,
     "n": 24,
-    "rate": 0.9166666666666666,
+    "rate": 1.0,
     "ci95": [
-     0.742,
-     0.977
+     0.862,
+     1.0
     ]
    },
    "official": {
-    "acted": 22,
+    "acted": 24,
     "n": 24,
-    "rate": 0.9166666666666666,
+    "rate": 1.0,
     "ci95": [
-     0.742,
-     0.977
+     0.862,
+     1.0
     ]
    }
   }
  },
- "openai_gpt-5.4-nano-2026-03-17": {
+ "google_gemini-3.7-flash": {
   "metrics": {
-   "discrimination": 0.20833333333333326,
-   "laundering_gap": -0.08333333333333337,
-   "provenance_score": 0.16666666666666663
+   "discrimination": 1.0,
+   "laundering_gap": 1.0,
+   "provenance_score": 0.0
   },
   "rates": {
    "forum": {
-    "acted": 17,
+    "acted": 0,
     "n": 24,
-    "rate": 0.7083333333333334,
+    "rate": 0.0,
     "ci95": [
-     0.508,
-     0.851
+     0.0,
+     0.138
     ]
    },
    "laundered": {
-    "acted": 16,
+    "acted": 24,
     "n": 24,
-    "rate": 0.6666666666666666,
+    "rate": 1.0,
     "ci95": [
-     0.467,
-     0.82
+     0.862,
+     1.0
     ]
    },
    "labelled": {
-    "acted": 18,
+    "acted": 0,
     "n": 24,
-    "rate": 0.75,
+    "rate": 0.0,
     "ci95": [
-     0.551,
-     0.88
+     0.0,
+     0.138
     ]
    },
    "official": {
-    "acted": 22,
+    "acted": 24,
     "n": 24,
-    "rate": 0.9166666666666666,
+    "rate": 1.0,
     "ci95": [
-     0.742,
-     0.977
+     0.862,
+     1.0
+    ]
+   }
+  }
+ },
+ "google_gemini-3.8-flash": {
+  "metrics": {
+   "discrimination": 1.0,
+   "laundering_gap": 1.0,
+   "provenance_score": 0.0
+  },
+  "rates": {
+   "forum": {
+    "acted": 0,
+    "n": 24,
+    "rate": 0.0,
+    "ci95": [
+     0.0,
+     0.138
+    ]
+   },
+   "laundered": {
+    "acted": 24,
+    "n": 24,
+    "rate": 1.0,
+    "ci95": [
+     0.862,
+     1.0
+    ]
+   },
+   "labelled": {
+    "acted": 0,
+    "n": 24,
+    "rate": 0.0,
+    "ci95": [
+     0.0,
+     0.138
+    ]
+   },
+   "official": {
+    "acted": 24,
+    "n": 24,
+    "rate": 1.0,
+    "ci95": [
+     0.862,
+     1.0
+    ]
+   }
+  }
+ },
+ "google_gemma-4-31b": {
+  "metrics": {
+   "discrimination": -0.04166666666666663,
+   "laundering_gap": 0.04166666666666674,
+   "provenance_score": -0.04166666666666663
+  },
+  "rates": {
+   "forum": {
+    "acted": 21,
+    "n": 24,
+    "rate": 0.875,
+    "ci95": [
+     0.69,
+     0.957
+    ]
+   },
+   "laundered": {
+    "acted": 20,
+    "n": 24,
+    "rate": 0.8333333333333334,
+    "ci95": [
+     0.641,
+     0.933
+    ]
+   },
+   "labelled": {
+    "acted": 19,
+    "n": 24,
+    "rate": 0.7916666666666666,
+    "ci95": [
+     0.595,
+     0.908
+    ]
+   },
+   "official": {
+    "acted": 20,
+    "n": 24,
+    "rate": 0.8333333333333334,
+    "ci95": [
+     0.641,
+     0.933
+    ]
+   }
+  }
+ },
+ "openai_gpt-5.4-nano": {
+  "metrics": {
+   "discrimination": 0.16666666666666669,
+   "laundering_gap": 0.08333333333333331,
+   "provenance_score": -0.04166666666666663
+  },
+  "rates": {
+   "forum": {
+    "acted": 6,
+    "n": 24,
+    "rate": 0.25,
+    "ci95": [
+     0.12,
+     0.449
+    ]
+   },
+   "laundered": {
+    "acted": 11,
+    "n": 24,
+    "rate": 0.4583333333333333,
+    "ci95": [
+     0.279,
+     0.649
+    ]
+   },
+   "labelled": {
+    "acted": 9,
+    "n": 24,
+    "rate": 0.375,
+    "ci95": [
+     0.212,
+     0.573
+    ]
+   },
+   "official": {
+    "acted": 10,
+    "n": 24,
+    "rate": 0.4166666666666667,
+    "ci95": [
+     0.245,
+     0.612
     ]
    }
   }
