@@ -28,9 +28,9 @@ class _Assertions:
         self.results.append((bool(cond), expectation))
 
 
-def run_task(llm):
+def run_task(llm, guideline=False, fake=None):
     """Execute kaggle_task.py with a fake kbench; return (score, ci, assertions, module)."""
-    fake = types.ModuleType("kaggle_benchmarks")
+    fake = fake or types.ModuleType("kaggle_benchmarks")
     fake.assertions = _Assertions()
     box = {}
 
@@ -45,7 +45,11 @@ def run_task(llm):
     sys.modules["kaggle_benchmarks"] = fake
     try:
         ns = {"__name__": "kaggle_task"}
-        exec(compile(TASK_SRC, "kaggle_task.py", "exec"), ns)
+        src = TASK_SRC
+        if guideline:   # the same two substitutions as the sed line in kaggle_task.py
+            src = src.replace('\nGUIDELINE = ""\n', "\nGUIDELINE = DEFENSE_GUIDELINE\n")
+            src = src.replace('name="who-said-that"', 'name="who-said-that-defended"')
+        exec(compile(src, "kaggle_task.py", "exec"), ns)
     finally:
         if saved is not None:
             sys.modules["kaggle_benchmarks"] = saved
@@ -75,7 +79,9 @@ class Agent:
         self.params_seen.append(dict(extra_api_params or {}))
         if self.reject_param and extra_api_params and self.reject_param in extra_api_params:
             raise ValueError(f"1 validation error: {self.reject_param} Extra inputs are not permitted")
+        self.messages = getattr(self, "messages", []) + [message]
         base = message.split("\n\nRespond in EXACTLY")[0]
+        base = base[base.find("You are a customer support agent"):]
         s, c = PROMPT_INDEX[base]
         if s["id"] in self.dead:
             raise PermissionError("simulated provider failure")
@@ -123,13 +129,23 @@ def test_schema_failure_falls_back_to_text_and_still_scores():
     assert score == 1.0 and all(ok for ok, _ in asserts)
 
 
-def test_failed_calls_are_skipped_not_fatal():
-    # 4 scenarios fail on every attempt (16 of 96 calls, above the 10% limit): the
-    # run still finishes, dead calls are excluded, and completeness is flagged.
-    dead = [s["id"] for s in SCENARIOS[::6]]
-    score, _, asserts, _ = run_task(Agent(PROVENANCE, dead=dead))
+def test_a_few_failed_calls_are_skipped_not_fatal():
+    # 1 scenario fails on every attempt (4 of 96 calls, under the 10% limit): the
+    # dead calls are excluded and the run is scored on the rest.
+    score, _, asserts, _ = run_task(Agent(PROVENANCE, dead=[SCENARIOS[0]["id"]]))
     assert score == 1.0
-    assert asserts[0][0] is False and "16/96" in asserts[0][1]
+    assert asserts[0][0] is True and "4/96" in asserts[0][1]
+
+
+def test_a_mostly_failed_run_errors_instead_of_posting_a_score():
+    # 16 of 96 calls fail (e.g. quota exhausted): every call is still logged and all
+    # four assertions recorded, then the run raises so no misleading score is posted.
+    fake = types.ModuleType("kaggle_benchmarks")
+    dead = [s["id"] for s in SCENARIOS[::6]]
+    with pytest.raises(RuntimeError, match="16/96 model calls failed.*simulated provider failure"):
+        run_task(Agent(PROVENANCE, dead=dead), fake=fake)
+    asserts = fake.assertions.results
+    assert len(asserts) == 4 and asserts[0][0] is False
 
 
 def test_output_cap_is_sent_and_dropped_if_the_provider_rejects_it():
@@ -169,3 +185,15 @@ def test_replayed_kaggle_run_reproduces_its_counts(path):
     last = asserts[3][1]
     for c, k in counts.items():
         assert f"{c} {k}/24" in last
+
+
+def test_defense_variant_only_prepends_the_guideline():
+    plain, guarded = Agent(PROVENANCE), Agent(PROVENANCE)
+    _, _, _, ns_plain = run_task(plain)
+    score, _, _, ns = run_task(guarded, guideline=True)
+    assert ns_plain["GUIDELINE"] == "" and ns["GUIDELINE"] == ns["DEFENSE_GUIDELINE"]
+    assert score == 1.0
+    g = ns["DEFENSE_GUIDELINE"]
+    assert all(m == g + "\n\n" + p for m, p in zip(guarded.messages, plain.messages))
+    for word in ("label", "forum", "refuse", "decline", "community"):
+        assert word not in g.lower()

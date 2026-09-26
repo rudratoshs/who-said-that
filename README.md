@@ -9,7 +9,7 @@
 [![Kaggle Benchmark](https://img.shields.io/badge/Kaggle-Live%20Benchmark-20BEFF?logo=kaggle&logoColor=white)](https://www.kaggle.com/benchmarks/tasks/rudratoshshastri/who-said-that/1)
 ![Python](https://img.shields.io/badge/python-3.12-3776AB?logo=python&logoColor=white)
 ![Design](https://img.shields.io/badge/design-minimal--pair%20%C3%97%204%20conditions-8A2BE2)
-![Tests](https://img.shields.io/badge/tests-28%20passing-success)
+![Tests](https://img.shields.io/badge/tests-30%20passing-success)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 **🔴 Live on Kaggle:** [kaggle.com/benchmarks/tasks/rudratoshshastri/who-said-that](https://www.kaggle.com/benchmarks/tasks/rudratoshshastri/who-said-that/1) — fork and run any model.
@@ -92,9 +92,9 @@ Acted on the claim, out of 24 per condition, on Kaggle's own infrastructure ([li
 - **Real, auditable per-call data.** Every row in `pilot-*.json` is rebuilt from Kaggle's stored traces with the model's full reply, and the import refuses to write a file unless its totals equal what Kaggle recorded.
 - **Replicated.** Two independent Kaggle runs give the same act / don't-act outcome on 93–96 of 96 cases for every model in the headline (nano, the noisiest, on 76/96).
 - **Paired statistics.** Scenario-level flips with exact sign tests, plus Wilson 95% CIs on every rate.
-- **Crash-proof task.** A failed model call is recorded and skipped; if more than 10% of calls fail the run is flagged incomplete instead of silently scored.
+- **Crash-proof task.** A failed model call is recorded and skipped; if more than 10% of calls fail (for example, the quota runs out mid-run) the run ends as errored instead of posting a score from the calls that worked.
 - **Seeded, re-runnable, anti-memorisation.** `variants.py` deterministically regenerates amounts, codes, order IDs, partner emails and author handles; the fairness invariant still holds.
-- **28 tests, green.** Dataset integrity, the minimal-pair invariant, baseline discrimination, variant determinism, and the Kaggle task itself run offline against simulated agents (including a replay of every real run).
+- **30 tests, green.** Dataset integrity, the minimal-pair invariant, baseline discrimination, variant determinism, and the Kaggle task itself run offline against simulated agents (including a replay of every real run).
 - **Fully synthetic.** 4 invented companies, zero contamination.
 
 ## 🏃 Run it
@@ -106,7 +106,7 @@ kaggle benchmarks auth                              # writes a model-proxy token
 python pilot.py anthropic/claude-sonnet-5@default   # run one model locally
 python analyze.py --deep                            # leaderboard, CIs, paired + per-action analysis
 python chart.py                                     # regenerate the charts
-python -m pytest tests/ -q                          # 28 tests
+python -m pytest tests/ -q                          # 30 tests
 
 # pull real per-call data from a Kaggle run
 kaggle benchmarks tasks download who-said-that -o kaggle_out
@@ -117,7 +117,7 @@ python kaggle_import.py kaggle_out
 
 | File | Role |
 |---|---|
-| `kaggle_task.py` | The Kaggle task: balanced accuracy + CI, four assertions, crash-proof calls, per-call log |
+| `kaggle_task.py` | The Kaggle task: balanced accuracy + CI, four assertions, crash-proof calls, per-call log, and an optional defense guideline (see the comment on `GUIDELINE`) |
 | `scenarios.py` | 24 synthetic scenarios across 4 invented companies |
 | `conditions.py` | The 4 conditions + deterministic scoring of whether the model acted |
 | `variants.py` | Seeded regeneration of memorisable specifics (anti-memorisation) |
@@ -126,7 +126,7 @@ python kaggle_import.py kaggle_out
 | `kaggle_import.py` | Rebuilds `pilot-*.json` from Kaggle's stored traces, verified against Kaggle's totals |
 | `chart.py` | The charts in `assets/` |
 | `pilot.py` | Runs every scenario × condition on one model locally |
-| `tests/` | 28 tests |
+| `tests/` | 30 tests |
 | `pilot-*.json`, `results.json` | Per-call results with full replies + computed metrics |
 
 ## ⚠️ Limitations

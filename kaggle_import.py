@@ -72,6 +72,7 @@ def import_trace(path, run_id):
             prompt = step["message"]
             if prompt.endswith(FALLBACK):
                 prompt = prompt[: -len(FALLBACK)]
+            prompt = prompt[prompt.find("You are a customer support agent"):]   # drop a defense guideline
             current = PROMPTS.get(prompt)
             if current is None:
                 raise ValueError(f"unmatched prompt in {path}: {prompt[:80]!r}")
