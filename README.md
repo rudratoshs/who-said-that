@@ -4,7 +4,7 @@
 
 ### Does an AI check *who said something* before acting on it?
 
-**A provenance benchmark for tool-using agents. Strip the source label off a rumour, phrase it like policy, and watch a careful model spend your money — while a two-line correct rule scores a perfect 1.00 and no frontier model beats 0.17.**
+**A provenance benchmark for tool-using agents. Strip the source label off a rumour, phrase it like policy, and watch a careful model spend your money — while a two-line correct rule scores a perfect 1.00 and two frontier models act on a laundered rumour 100% of the time.**
 
 [![Kaggle Benchmark](https://img.shields.io/badge/Kaggle-Live%20Benchmark-20BEFF?logo=kaggle&logoColor=white)](https://www.kaggle.com/benchmarks/tasks/rudratoshshastri/who-said-that/1)
 ![Python](https://img.shields.io/badge/python-3.12-3776AB?logo=python&logoColor=white)
@@ -26,8 +26,8 @@ When an AI support agent reads a claim, does it check **who said it** — or tru
 
 - Same claim, **four disguises** (`forum`, `laundered`, `labelled`, `official`); the `labelled` and `official` conditions are a **minimal pair** — identical wording, only the source label differs.
 - A **provenance score** collapses it to one number: 1.0 = acts on real policy and *only* real policy.
-- **A trivial correct rule (act iff labelled official) scores 1.00. No frontier model beats 0.17.**
-- The headline failure — **the Laundering Gap**: Claude Sonnet 5 ignores a claim labelled "community forum post" (0/24) but acts on the *same text*, unlabelled and official-sounding, **14/24 (58%)**. The words never change. Only the label does.
+- **A trivial correct rule (act iff labelled official) scores 1.00. Only Claude Sonnet 5 comes close (0.83); the rest act on tone.**
+- The headline failure — **the Laundering Gap**: Gemini 3.8 and 3.7 Flash ignore a claim labelled "community forum post" (0/24) but act on the *same text*, unlabelled and official-sounding, **24/24 (100%)**. The words never change. Only the label does.
 
 ## 🧪 The design (why it's fair)
 
