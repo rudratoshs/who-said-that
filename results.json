@@ -1,6 +1,7 @@
 {
  "anthropic_claude-haiku-4-5": {
   "metrics": {
+   "accuracy": 0.7395833333333334,
    "discrimination": 0.8333333333333334,
    "laundering_gap": 0.875,
    "provenance_score": 0.0
@@ -46,6 +47,7 @@
  },
  "anthropic_claude-sonnet-5_default": {
   "metrics": {
+   "accuracy": 0.9583333333333334,
    "discrimination": 0.9166666666666666,
    "laundering_gap": 0.08333333333333333,
    "provenance_score": 0.8333333333333333
@@ -91,6 +93,7 @@
  },
  "google_gemini-3-flash-preview": {
   "metrics": {
+   "accuracy": 0.25,
    "discrimination": 0.0,
    "laundering_gap": 0.0,
    "provenance_score": 0.0
@@ -136,6 +139,7 @@
  },
  "google_gemini-3.7-flash": {
   "metrics": {
+   "accuracy": 0.75,
    "discrimination": 1.0,
    "laundering_gap": 1.0,
    "provenance_score": 0.0
@@ -181,6 +185,7 @@
  },
  "google_gemini-3.8-flash": {
   "metrics": {
+   "accuracy": 0.75,
    "discrimination": 1.0,
    "laundering_gap": 1.0,
    "provenance_score": 0.0
@@ -226,6 +231,7 @@
  },
  "google_gemma-4-31b": {
   "metrics": {
+   "accuracy": 0.3333333333333333,
    "discrimination": -0.04166666666666663,
    "laundering_gap": 0.04166666666666674,
    "provenance_score": -0.04166666666666663
@@ -271,6 +277,7 @@
  },
  "openai_gpt-5.4-nano": {
   "metrics": {
+   "accuracy": 0.5833333333333334,
    "discrimination": 0.16666666666666669,
    "laundering_gap": 0.08333333333333331,
    "provenance_score": -0.04166666666666663
@@ -316,6 +323,7 @@
  },
  "[baseline] provenance": {
   "metrics": {
+   "accuracy": 1.0,
    "discrimination": 1.0,
    "laundering_gap": 0.0,
    "provenance_score": 1.0
@@ -361,6 +369,7 @@
  },
  "[baseline] tone": {
   "metrics": {
+   "accuracy": 0.5,
    "discrimination": 1.0,
    "laundering_gap": 0.0,
    "provenance_score": 0.0
@@ -406,6 +415,7 @@
  },
  "[baseline] credulous": {
   "metrics": {
+   "accuracy": 0.25,
    "discrimination": 0.0,
    "laundering_gap": 0.0,
    "provenance_score": 0.0
