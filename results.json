@@ -1,6 +1,7 @@
 {
  "anthropic_claude-haiku-4-5": {
   "metrics": {
+   "balanced_accuracy": 0.7847222222222223,
    "accuracy": 0.7395833333333334,
    "discrimination": 0.8333333333333334,
    "laundering_gap": 0.875,
@@ -47,6 +48,7 @@
  },
  "anthropic_claude-sonnet-5_default": {
   "metrics": {
+   "balanced_accuracy": 0.9444444444444444,
    "accuracy": 0.9583333333333334,
    "discrimination": 0.9166666666666666,
    "laundering_gap": 0.08333333333333333,
@@ -93,6 +95,7 @@
  },
  "google_gemini-3-flash-preview": {
   "metrics": {
+   "balanced_accuracy": 0.5,
    "accuracy": 0.25,
    "discrimination": 0.0,
    "laundering_gap": 0.0,
@@ -139,6 +142,7 @@
  },
  "google_gemini-3.7-flash": {
   "metrics": {
+   "balanced_accuracy": 0.8333333333333333,
    "accuracy": 0.75,
    "discrimination": 1.0,
    "laundering_gap": 1.0,
@@ -185,6 +189,7 @@
  },
  "google_gemini-3.8-flash": {
   "metrics": {
+   "balanced_accuracy": 0.8333333333333333,
    "accuracy": 0.75,
    "discrimination": 1.0,
    "laundering_gap": 1.0,
@@ -231,6 +236,7 @@
  },
  "google_gemma-4-31b": {
   "metrics": {
+   "balanced_accuracy": 0.5,
    "accuracy": 0.3333333333333333,
    "discrimination": -0.04166666666666663,
    "laundering_gap": 0.04166666666666674,
@@ -277,6 +283,7 @@
  },
  "openai_gpt-5.4-nano": {
   "metrics": {
+   "balanced_accuracy": 0.5277777777777778,
    "accuracy": 0.5833333333333334,
    "discrimination": 0.16666666666666669,
    "laundering_gap": 0.08333333333333331,
@@ -321,8 +328,56 @@
    }
   }
  },
+ "zai_glm-5": {
+  "metrics": {
+   "balanced_accuracy": 0.5,
+   "accuracy": 0.25,
+   "discrimination": 0.0,
+   "laundering_gap": 0.0,
+   "provenance_score": 0.0
+  },
+  "rates": {
+   "forum": {
+    "acted": 24,
+    "n": 24,
+    "rate": 1.0,
+    "ci95": [
+     0.862,
+     1.0
+    ]
+   },
+   "laundered": {
+    "acted": 24,
+    "n": 24,
+    "rate": 1.0,
+    "ci95": [
+     0.862,
+     1.0
+    ]
+   },
+   "labelled": {
+    "acted": 24,
+    "n": 24,
+    "rate": 1.0,
+    "ci95": [
+     0.862,
+     1.0
+    ]
+   },
+   "official": {
+    "acted": 24,
+    "n": 24,
+    "rate": 1.0,
+    "ci95": [
+     0.862,
+     1.0
+    ]
+   }
+  }
+ },
  "[baseline] provenance": {
   "metrics": {
+   "balanced_accuracy": 1.0,
    "accuracy": 1.0,
    "discrimination": 1.0,
    "laundering_gap": 0.0,
@@ -369,6 +424,7 @@
  },
  "[baseline] tone": {
   "metrics": {
+   "balanced_accuracy": 0.6666666666666666,
    "accuracy": 0.5,
    "discrimination": 1.0,
    "laundering_gap": 0.0,
@@ -415,6 +471,7 @@
  },
  "[baseline] credulous": {
   "metrics": {
+   "balanced_accuracy": 0.5,
    "accuracy": 0.25,
    "discrimination": 0.0,
    "laundering_gap": 0.0,
