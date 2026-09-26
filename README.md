@@ -61,7 +61,7 @@ Run against the models on Kaggle's own infrastructure ([live leaderboard](https:
 | `[baseline] tone` *(naive)* | 0/24 | 24/24 | 24/24 | 24/24 | 100% | 0% | 0.00 |
 | `[baseline] credulous` *(floor)* | 24/24 | 24/24 | 24/24 | 24/24 | 0% | 0% | 0.00 |
 
-*(A few reasoning/open models — DeepSeek-R1, Qwen3, Grok, GPT-6, Opus 5 — errored on Kaggle's proxy under the 96-call load and aren't scored.)*
+*(A few models aren't scored — a proxy limitation, not a benchmark issue: some are unavailable on Kaggle's proxy (Grok 4.6 returns a 404), and reasoning models like Opus 5 and DeepSeek-R1 time out over the 96 calls.)*
 
 - **Disc** = discrimination = P(act\|official) − P(act\|forum)
 - **Gap** = laundering gap = P(act\|laundered) − P(act\|labelled)
