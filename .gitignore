@@ -4,3 +4,5 @@ __pycache__/
 .env
 kaggle.env
 *.log
+spike.py
+example_task.py

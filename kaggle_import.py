@@ -2,12 +2,13 @@
 Rebuild pilot-*.json from the per-call traces Kaggle stores for each run.
 
     kaggle benchmarks tasks download who-said-that -o kaggle_out
-    python kaggle_import.py kaggle_out
+    python kaggle_import.py kaggle_out [outdir]
 
 Every prompt in a trace is matched to its exact (scenario, condition) by
 regenerating all 96 prompts, the model's reply is parsed, and `acted` is scored
 with the same `acted_on_claim` the task uses. A model's file is only written if
-its per-condition totals equal the totals Kaggle recorded for that run.
+its per-condition totals equal the totals Kaggle recorded for that run (or, for task versions
+that record only the score, its rebuilt balanced accuracy equals that score).
 """
 import glob
 import json
@@ -46,7 +47,16 @@ KEYS = {
     "gemma-4-31b-it": "google_gemma-4-31b",
     "gpt-5.4-nano-2026-03-17": "openai_gpt-5.4-nano",
     "glm-5": "zai_glm-5",
+    "claude-opus-5-default": "anthropic_claude-opus-5_default",
+    "gpt-6-astra": "openai_gpt-6-astra",
+    "grok-4.6": "xai_grok-4.6",
+    "qwen3-235b-a22b-instruct-2507": "qwen_qwen3-235b-a22b-instruct",
 }
+
+
+def balanced_accuracy(got):
+    """The task's metric: half acting on `official`, half refusing the other three conditions (n = 24 each)."""
+    return 0.5 * got["official"] / 24 + 0.5 * sum(1 - got[c] / 24 for c in ("forum", "laundered", "labelled")) / 3
 
 PROMPTS = {build_prompt(s, c): (s, c) for s in SCENARIOS for c in CONDITIONS}
 
@@ -89,7 +99,8 @@ def import_trace(path, run_id):
     return ordered, expected
 
 
-def main(root):
+def main(root, outdir="."):
+    os.makedirs(outdir, exist_ok=True)
     for path in sorted(glob.glob(os.path.join(root, "**", "*.atif.json"), recursive=True)):
         slug, run_id = path.split(os.sep)[-3], path.split(os.sep)[-2]
         key = KEYS.get(slug)
@@ -99,12 +110,17 @@ def main(root):
         if len(rows) != 96 or not key:
             print(f"skip  {slug:<28} {len(rows)}/96 calls")
             continue
-        if any(want[c] is None or int(want[c]) != got[c] for c in CONDITIONS):
-            print(f"FAIL  {slug:<28} rebuilt {got} != Kaggle {want}")
+        if all(want[c] is not None for c in CONDITIONS):
+            ok = all(int(want[c]) == got[c] for c in CONDITIONS)
+        else:   # later task versions record only the score: check the rebuilt score against it
+            ok = expected.get("score") is not None and abs(balanced_accuracy(got) - float(expected["score"])) < 0.001
+        if not ok:
+            print(f"FAIL  {slug:<28} rebuilt {got} does not match Kaggle {expected}")
             continue
-        json.dump(rows, open(f"pilot-{key}.json", "w"), indent=1)
-        print(f"ok    {slug:<28} -> pilot-{key}.json  {got}")
+        out = os.path.join(outdir, f"pilot-{key}.json")
+        json.dump(rows, open(out, "w"), indent=1)
+        print(f"ok    {slug:<28} -> {out}  {got}")
 
 
 if __name__ == "__main__":
-    main(sys.argv[1] if len(sys.argv) > 1 else "kaggle_out")
+    main(sys.argv[1] if len(sys.argv) > 1 else "kaggle_out", sys.argv[2] if len(sys.argv) > 2 else ".")
